@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweeter Home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <script src="{% static 'scripts.js' %}" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Tweeter</h1>
+    </header>
+    <main>
+        <section id="tweet-form">
+            <h2>Post a Tweet</h2>
+            <form method="post" action="/post_tweet/">
+                {% csrf_token %}
+                <textarea name="tweet_content" rows="4" cols="50" placeholder="What's happening?"></textarea><br>
+                <button type="submit">Tweet</button>
+            </form>
+        </section>
+        <section id="tweets">
+            <h2>Recent Tweets</h2>
+            {% for tweet in tweets %}
+                <div class="tweet">
+                    <p>{{ tweet.content }}</p>
+                    <span class="timestamp">{{ tweet.timestamp }}</span>
+                </div>
+            {% empty %}
+                <p>No tweets yet. Be the first to tweet!</p>
+            {% endfor %}
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Tweeter</p>
+    </footer>
+</body>
+</html>
